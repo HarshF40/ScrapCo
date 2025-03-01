@@ -2,38 +2,37 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import prisma from "../prismaClient.js";
-import isEmail from "validator/lib/isEmail.js";
 import validator from "validator";
 
-const { isMobilePhone } = validator;
+const { isEmail, isMobilePhone } = validator;
 
 dotenv.config();
 
 // Seller Signup Controller
 export const signupSeller = async (req, res) => {
-    try {  
-        const { 
-            fullName, phone, email, password, permAddress, profilePicture, sellerRole 
+    try {
+        const {
+            fullName, phone, email, password, permAddress, sellerRole, gstNumber, licenseNumber
         } = req.body;
 
         let orgAddress = null;
         let orgName = null;
 
-        if (sellerRole === "ORGANISATION") { 
+        if (sellerRole === "ORGANISATION") {
             orgName = req.body.orgName;
             orgAddress = req.body.orgAddress;
         }
 
         // Field validation
-        if (!fullName || !phone || !email || !password || !permAddress || !sellerRole || !profilePicture) {
+        if (!fullName || !phone || !email || !password || !permAddress || !sellerRole) {
             return res.status(400).json({ message: "All fields are required" });
         }
         if (sellerRole === "ORGANISATION" && (!orgName || !orgAddress)) {
             return res.status(400).json({ message: "All fields are required" });
         }
-        if (!isEmail(email) || !isMobilePhone(phone)) {
-            return res.status(400).json({ message: "Enter valid credentials" });
-        }
+        // if (!isEmail(email) || !isMobilePhone(phone, 'any')) {
+        //     return res.status(400).json({ message: "Enter valid credentials" });
+        // }
         if (password.length < 6) {
             return res.status(400).json({ message: "Password should be at least 6 characters long" });
         }
@@ -49,10 +48,11 @@ export const signupSeller = async (req, res) => {
                     email,
                     passwordHash: hashedPassword,
                     permAddress,
-                    profilePicture,
                     sellerRole,
-                    orgName,
-                    orgAddress
+                    gstNo: gstNumber || undefined,
+                    licNum: licenseNumber || undefined,
+                    orgName: orgName || undefined,
+                    orgAddress: orgAddress || undefined
                 }
             });
 
