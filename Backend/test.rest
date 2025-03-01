@@ -44,4 +44,41 @@ POST /create
   "status": "PENDING"
 }
 
+##########################################################
 
+http://localhost:8080
+
+POST /addItem
+{
+  "name" : "Harry Potter",
+  "images" : ["url1", "url2"],
+  "points" : 99,
+  "stock" : 100,
+  "category" : "earthen pots",
+  "description" : "eco friedly earther made from Goan soil",
+  "company" : "abra ca dabra"
+}
+
+##########################################################
+
+http://localhost:8080
+
+POST /addItem
+{
+  "name" : "paper plates",
+  "images" : ["url1", "url2"],
+  "points" : 88,
+  "stock" : 32,
+  "category" : "eco friendly, biodegradable plates",
+  "description" : "eco friedly plates made from Goan areca nut leaves",
+  "company" : "the plate co"
+}
+
+
+
+##################################################
+
+http://localhost:8080
+Accept: application/json;
+Content-Type: application/json; charset=utf-8
+GET /shop/allItems

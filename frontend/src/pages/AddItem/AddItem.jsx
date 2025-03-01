@@ -4,13 +4,16 @@ import SelectField from './SelectField';
 import { useForm } from 'react-hook-form';
 import { useAddItemMutation } from '../../redux/features/items/itemsApi';
 import  { useGetCurrentDealerQuery } from '../../redux/features/dealer/dealerApi'
+import {addToPoint} from '../../redux/features/points/pointsSlice'
 import Swal from 'sweetalert2';
+import { useDispatch } from'react-redux'
 
 const AddItem = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     // const [imageFile, setImageFile] = useState(null);
     const [addItem, { isLoading, isError }] = useAddItemMutation();
     // const [imageFileName, setImageFileName] = useState('');
+    const dispatch =  useDispatch();
 
     const { data: dealer, isLoading: isDealerLoading } = useGetCurrentDealerQuery();
 
@@ -41,6 +44,7 @@ const AddItem = () => {
     
         try {
             await addItem(payload).unwrap();
+            dispatch(addToPoint(payload))
             Swal.fire({
                 title: "Item listed",
                 text: "Your scrap item has been listed successfully!",

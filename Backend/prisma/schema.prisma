@@ -56,6 +56,7 @@ model User {
   sellerRole      SellerRole @default(INDIVIDUAL)
   orgName         String?
   orgAddress      String?
+  points          Int         @default(0)
   items           Item[]      // One-to-many relation: A user can have many items
   transactions    Transaction[] // One-to-many relation: A user can have many transactions
   //we can have rating later
@@ -126,9 +127,11 @@ model Transaction {
 
 model ShopItem {
   ItemId             Int        @id @default(autoincrement())
-  SellerId           String     @default(uuid())
+  name               String
   images             String[]
-  price              Float
+  points             Int
   stock              Int
   category           String
+  description        String
+  company            String
 }

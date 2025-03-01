@@ -17,11 +17,11 @@ const shopApi = createApi({
     endpoints: (builder) => ({
         // Products
         fetchAllProducts: builder.query({
-            query: () => "/products", // Assuming your product endpoint is /products
+            query: () => "/shop/allItems", // Assuming your product endpoint is /products
             providesTags: ["Products"]
         }),
         fetchProductById: builder.query({
-            query: (id) => `/products/${id}`,
+            query: (id) => `/shop/${id}`,
             providesTags: (result, error, id) =>
                 result ? [{ type: "Products", id }] : ["Products"],
         }),

@@ -4,10 +4,12 @@ import itemsApi from './features/items/itemsApi';
 import ordersApi from './features/orders/ordersApi';
 import dealerApi from './features/dealer/dealerApi'
 import shopApi from './features/shop/shopApi';
+import pointReducer from './features/points/pointsSlice'
 
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
+    point:pointReducer,
     [itemsApi.reducerPath]: itemsApi.reducer,
     [ordersApi.reducerPath]: ordersApi.reducer,
     [dealerApi.reducerPath]: dealerApi.reducer,

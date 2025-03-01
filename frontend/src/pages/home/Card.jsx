@@ -2,8 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { FaMapMarkerAlt, FaCalendarAlt, FaClock, FaTrash, FaUserAlt, FaWeightHanging, FaRecycle } from "react-icons/fa";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useDispatch } from'react-redux'
+import { addToCart } from '../../redux/features/cart/cartSlice'
+// import {getImgUrl} from '../../utils/getImgUrl'
 
-const ScrapCard = ({ scrap }) => {
+const ScrapCard = ({ scrap, key }) => {
+  const dispatch =  useDispatch();
   const [showMap, setShowMap] = useState(false);
   const mapRef = useRef(null);
   const mapContainerRef = useRef(null);
@@ -19,7 +23,9 @@ const ScrapCard = ({ scrap }) => {
     const message = `Hello ${scrap?.sellerName}, I'm interested in purchasing your ${scrap?.materialType} scrap from ${scrap?.pickupLocation}. Is it still available for ₹${scrap?.price}/kg?`;
     return encodeURIComponent(message);
   };
-
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product))
+}
   // Initialize map when showing it
   useEffect(() => {
     if (showMap && !mapRef.current && mapContainerRef.current) {
@@ -56,7 +62,7 @@ const ScrapCard = ({ scrap }) => {
           <h3 className="text-xl font-semibold text-green-600">₹{scrap?.price}/kg</h3>
           <div className="flex items-center space-x-2 text-gray-600">
             <FaUserAlt size={14} />
-            <span className="text-sm font-medium">{scrap?.sellerName}</span>
+            <span className="text-sm font-medium">{scrap?.seller_name}</span>
           </div>
         </div>
 
@@ -64,15 +70,15 @@ const ScrapCard = ({ scrap }) => {
           <div className="flex items-start space-x-2">
             <FaRecycle className="text-green-500 mt-1 flex-shrink-0" />
             <div className="flex flex-col text-sm">
-              <span className="font-medium">Material: {scrap?.materialType}</span>
-              <span className="text-gray-600">{scrap?.materialDescription}</span>
+              <span className="font-medium">Material: {scrap?.material}</span>
+              <span className="text-gray-600">{scrap?.description}</span>
             </div>
           </div>
 
           <div className="flex items-start space-x-2">
             <FaMapMarkerAlt className="text-red-500 mt-1 flex-shrink-0" />
             <div className="flex flex-col text-sm">
-              <span className="font-medium">Pickup Location: {scrap?.pickupLocation}</span>
+              <span className="font-medium">Pickup Location: {scrap?.pickUpAddress}</span>
             </div>
           </div>
 
@@ -90,10 +96,10 @@ const ScrapCard = ({ scrap }) => {
 
           <div className="text-xs text-gray-500 flex flex-wrap gap-2">
             <span className="bg-gray-100 px-2 py-1 rounded">
-              Category: {scrap?.category}
+              Category: {scrap?.material}
             </span>
             <span className="bg-gray-100 px-2 py-1 rounded">
-              Condition: {scrap?.condition}
+              Condition: {scrap?.material ? "GOod": 'Good'}
             </span>
             {scrap?.needsTransport && (
               <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">
@@ -127,6 +133,7 @@ const ScrapCard = ({ scrap }) => {
             Contact Seller
           </a>
           <button
+             onClick={() => handleAddToCart(scrap)}
             className="flex items-center justify-center font-bold uppercase py-3 px-4 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-all text-sm"
             type="button"
           >

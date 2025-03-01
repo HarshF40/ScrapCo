@@ -1,0 +1,42 @@
+.button {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+.button:hover {
+    
+    background-color: lightgreen ;
+}
+
+.cart { 
+    size: "100%";
+    /* margin-left: 20px; */
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    /* background-color: rgb(0, 0, 0);    */
+}
+.cart:hover {
+    
+    background-color: lightgreen ;
+}
+.tab {
+    border-radius: 1.5rem;
+    height: 40px;
+    width: 100px;
+    font-size: medium;
+    background-color: lightgreen;
+    
+}
+.tab:hover {
+    /* height: 60px;
+    width: 150px;
+    font-size: large; */
+    background-color: #467f46;
+}
+.Scrap {
+    align-items: center;
+    font-size: 60px;
+   font-weight: bolder;
+
+}

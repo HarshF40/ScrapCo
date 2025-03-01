@@ -73,7 +73,7 @@ const Recommended = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {currentItems.map((scrap, index) => (
               <div key={index} className="h-full">
-                <Card scrap={scrap} />
+                <Card scrap={scrap} key={index}  />
               </div>
             ))}
           </div>

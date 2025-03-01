@@ -5,6 +5,8 @@ import sellerRoutes from "./routes/sellerRoutes.js";
 import itemRoutes from "./routes/itemRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 
+import shopRoutes from "./routes/shopRoutes.js";
+
 dotenv.config();
 
 const app = express();
@@ -24,6 +26,7 @@ app.use(express.json());
 app.use("/", sellerRoutes);
 app.use("/", itemRoutes);
 app.use("/", orderRoutes);
+app.use("/", shopRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
