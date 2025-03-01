@@ -25,10 +25,10 @@ const itemsApi = createApi({
                 result ? [{ type: "Items", id }] : ["Items"],
         }),
         addItem: builder.mutation({
-            query: (newBook) => ({
+            query: (newItems) => ({
                 url: "/create",
                 method: "POST",
-                body: newBook
+                body: newItems
             }),
             invalidatesTags: ["Items"]
         }),

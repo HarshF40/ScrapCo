@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import getBaseUrl from '../../../utils/baseURL';
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: `${getBaseUrl()}/dealer`,
+    baseUrl: `${getBaseUrl()}`,
     credentials: 'include',
     prepareHeaders: (headers) => {
         headers.set("Content-Type", "application/json");
